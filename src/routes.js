@@ -102,7 +102,7 @@ const routes = [
     component: RTL,
   },
   {
-    name: "امکاناjjت",
+    name: "امکانات",
     layout: "/rtl",
     path: "/rtl-default",
     icon: <Icon as={FcGrid} width='20px' height='20px' color='inherit' />,

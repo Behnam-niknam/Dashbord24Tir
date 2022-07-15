@@ -10,7 +10,10 @@ import {
 // Custom components
 import Card from "components/card/Card.js";
 import LineChart from "components/charts/LineChart";
-import React from "react";
+import React  from "react";
+import {useState} from "react";
+import ReactDOM from 'react-dom';
+import { VictoryBar, VictoryChart } from 'victory';
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { MdBarChart, MdOutlineCalendarToday } from "react-icons/md";
 // Assets
@@ -19,6 +22,8 @@ import {
   lineChartDataTotalSpent,
   lineChartOptionsTotalSpent,
 } from "variables/charts";
+
+import Dropdown from 'react-bootstrap/Dropdown';
 
 export default function TotalSpent(props) {
   const { ...rest } = props;
@@ -38,6 +43,79 @@ export default function TotalSpent(props) {
     { bg: "secondaryGray.300" },
     { bg: "whiteAlpha.100" }
   );
+  const Dataday=[
+    {quarte:1 , earnings:1300},
+    {quarte:2 , earnings:1400},
+    {quarte:3 , earnings:1300},
+    {quarte:4 , earnings:1500},
+    {quarte:5 , earnings:1300},
+
+  ];
+  const Dataweek=[
+    {quarte:1 , earnings:1300},
+    {quarte:2 , earnings:1400},
+    {quarte:3 , earnings:1300},
+    {quarte:4 , earnings:1500},
+    {quarte:5 , earnings:1300},
+    {quarte:6 , earnings:1600},
+    {quarte:7 , earnings:1300},
+    {quarte:8 , earnings:1700},
+    {quarte:9 , earnings:1300},
+    {quarte:10 , earnings:1800},
+    {quarte:11 , earnings:100},
+    {quarte:12  , earnings:1300},
+  ];
+  const Datamound=[
+    {quarte:1 , earnings:1300},
+    {quarte:2 , earnings:1400},
+    {quarte:3 , earnings:1300},
+    {quarte:4 , earnings:1500},
+    {quarte:5 , earnings:1300},
+    {quarte:6 , earnings:1600},
+    {quarte:7 , earnings:1300},
+    {quarte:8 , earnings:1700},
+    {quarte:9 , earnings:1300},
+    {quarte:10 , earnings:1800},
+    {quarte:11 , earnings:100},
+    {quarte:12  , earnings:1300},
+    {quarte:13  , earnings:1900},
+    {quarte:14  , earnings:1000},
+    {quarte:15  , earnings:1300},
+    {quarte:16  , earnings:1100},
+    {quarte:17  , earnings:1300},
+  ];
+  const Datayear=[
+    {quarte:1 , earnings:1300},
+    {quarte:2 , earnings:1400},
+    {quarte:3 , earnings:1300},
+    {quarte:4 , earnings:1500},
+    {quarte:5 , earnings:1300},
+    {quarte:6 , earnings:1600},
+    {quarte:7 , earnings:1300},
+    {quarte:8 , earnings:1700},
+    {quarte:9 , earnings:1300},
+    {quarte:10 , earnings:1800},
+    {quarte:11 , earnings:100},
+    {quarte:12  , earnings:1300},
+    {quarte:13  , earnings:1900},
+    {quarte:14  , earnings:1000},
+    {quarte:15  , earnings:1300},
+    {quarte:16  , earnings:1100},
+    {quarte:17  , earnings:1300},
+    {quarte:18  , earnings:1500},
+    {quarte:19  , earnings:1300},
+    {quarte:20  , earnings:1600},
+    {quarte:21  , earnings:1300},
+    {quarte:22  , earnings:800},
+  ];
+  const data = [
+    {quarter: 1, earnings: 13000},
+    {quarter: 2, earnings: 16500},
+    {quarter: 3, earnings: 14250},
+    {quarter: 4, earnings: 19000}
+  ];
+ 
+const [selectedData , setselectedData]=useState(Datamound)
   return (
     <Card
       justifyContent='center'
@@ -46,79 +124,26 @@ export default function TotalSpent(props) {
       w='100%'
       mb='0px'
       {...rest}>
-      <Flex justify='space-between' ps='0px' pe='20px' pt='5px'>
-        <Flex align='center' w='100%'>
-          <Button
-            bg={boxBg}
-            fontSize='sm'
-            fontWeight='500'
-            color={textColorSecondary}
-            borderRadius='7px'>
-            <Icon
-              as={MdOutlineCalendarToday}
-              color={textColorSecondary}
-              me='4px'
-            />
-            This month
-          </Button>
-          <Button
-            ms='auto'
-            align='center'
-            justifyContent='center'
-            bg={bgButton}
-            _hover={bgHover}
-            _focus={bgFocus}
-            _active={bgFocus}
-            w='37px'
-            h='37px'
-            lineHeight='100%'
-            borderRadius='10px'
-            {...rest}>
-            <Icon as={MdBarChart} color={iconColor} w='24px' h='24px' />
-          </Button>
-        </Flex>
-      </Flex>
-      <Flex w='100%' flexDirection={{ base: "column", lg: "row" }}>
-        <Flex flexDirection='column' me='20px' mt='28px'>
-          <Text
-            color={textColor}
-            fontSize='34px'
-            textAlign='start'
-            fontWeight='700'
-            lineHeight='100%'>
-            $37.5K
-          </Text>
-          <Flex align='center' mb='20px'>
-            <Text
-              color='secondaryGray.600'
-              fontSize='sm'
-              fontWeight='500'
-              mt='4px'
-              me='12px'>
-              Total Spent
-            </Text>
-            <Flex align='center'>
-              <Icon as={RiArrowUpSFill} color='green.500' me='2px' mt='2px' />
-              <Text color='green.500' fontSize='sm' fontWeight='700'>
-                +2.45%
-              </Text>
-            </Flex>
-          </Flex>
+      <Dropdown>
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+      Choose a time frame
+      </Dropdown.Toggle>
 
-          <Flex align='center'>
-            <Icon as={IoCheckmarkCircle} color='green.500' me='4px' />
-            <Text color='green.500' fontSize='md' fontWeight='700'>
-              On track
-            </Text>
-          </Flex>
-        </Flex>
-        <Box minH='260px' minW='75%' mt='auto'>
-          <LineChart
-            chartData={lineChartDataTotalSpent}
-            chartOptions={lineChartOptionsTotalSpent}
-          />
-        </Box>
-      </Flex>
+      <Dropdown.Menu>
+        <Dropdown.Item onClick={()=>{setselectedData(Dataday)}}>Day</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{setselectedData(Dataweek)}}>Week</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{setselectedData(Datamound)}}>Mound</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{setselectedData(Datayear)}}>Year</Dropdown.Item>
+
+      </Dropdown.Menu>
+    </Dropdown>
+    <VictoryChart>
+        <VictoryBar
+          data={selectedData}
+          x="quarter"
+          y="earnings"
+        />
+      </VictoryChart>
     </Card>
   );
 }

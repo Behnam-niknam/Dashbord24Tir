@@ -1,11 +1,15 @@
 // Chakra imports
-import { Box, Flex, Text, Select, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Text, Select, useColorModeValue, background } from "@chakra-ui/react";
 // Custom components
 import Card from "components/card/Card.js";
 import PieChart from "components/charts/PieChart";
 import { pieChartData, pieChartOptions } from "variables/charts";
 import { VSeparator } from "components/separator/Separator";
-import React from "react";
+import {VictoryPie , VictoryLabel } from "victory"
+import axios from "axios";
+
+import React, { useEffect } from "react";
+import { useState } from "react";
 
 export default function Conversion(props) {
   const { ...rest } = props;
@@ -17,9 +21,48 @@ export default function Conversion(props) {
     "0px 18px 40px rgba(112, 144, 176, 0.12)",
     "unset"
   );
+  const [selctedData , setselctedData]=useState([
+    {x:"males" , y:90},
+    {x:"famales" , y:5},
+    {x:"unknow" , y:15},
+
+  ]);
+ const getDatafromserver=()=>{
+  axios.get("https://user.o2fitt.com/api/v1/UserProfiles/GetUsersGenderCount").then((re)=>{
+    setselctedData([
+      {x:"males" , y:re.data.data.meles},
+      {x:"females" , y:re.data.data.females},
+      {x:"unknow" , y:100},
+
+    ])
+  })
+ };
+ useEffect(()=>{
+  getDatafromserver()
+ },[]);
   return (
     <Card p='20px' align='center' direction='column' w='100%' {...rest}>
-      <Flex
+  <svg viewBox="0 0 400 400" >
+  <VictoryPie
+    standalone={false}
+    width={400} height={400}
+    data={[
+      {x: "males", y: 33},
+      {x: "females", y: 33},
+      {x: "unknow", y: 33}
+    ]} 
+    colorScale={["blue", "red", "gray"]} 
+     labelRadius={100}
+    style={{ labels: { fontSize: 20, fill: "white"}}}
+
+  />
+
+  <VictoryLabel
+
+  />
+</svg>
+
+{/*       <Flex
         px={{ base: "0px", "2xl": "10px" }}
         justifyContent='space-between'
         alignItems='center'
@@ -87,6 +130,6 @@ export default function Conversion(props) {
           </Text>
         </Flex>
       </Card>
-    </Card>
+ */}    </Card>
   );
 }

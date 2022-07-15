@@ -17,6 +17,7 @@ import {
 } from "variables/charts";
 import { MdBarChart } from "react-icons/md";
 
+
 export default function WeeklyRevenue(props) {
   const { ...rest } = props;
 
@@ -32,39 +33,50 @@ export default function WeeklyRevenue(props) {
     { bg: "secondaryGray.300" },
     { bg: "whiteAlpha.100" }
   );
+  const tabalData=[
+    {username:"09123265454" , price:"169000" ,package:"6ماهه" , createTime:"26.2.1400  22:10:23", membershipTime:"26.2.1400  22:15:23", situation:"موفق"},
+    {username:"09123265454" , price:"169000" ,package:"6ماهه" , createTime:"26.2.1400  22:10:23", membershipTime:"26.2.1400  22:15:23", situation:"موفق"},
+    {username:"09123265454" , price:"169000" ,package:"6ماهه" , createTime:"26.2.1400  22:10:23", membershipTime:"26.2.1400  22:15:23", situation:"موفق"},
+    {username:"09123265454" , price:"169000" ,package:"6ماهه" , createTime:"26.2.1400  22:10:23", membershipTime:"26.2.1400  22:15:23", situation:"موفق"},
+    {username:"09123265454" , price:"169000" ,package:"6ماهه" , createTime:"26.2.1400  22:10:23", membershipTime:"26.2.1400  22:15:23", situation:"موفق"},
+    {username:"09123265454" , price:"169000" ,package:"6ماهه" , createTime:"26.2.1400  22:10:23", membershipTime:"26.2.1400  22:15:23", situation:"موفق"},
+    {username:"09123265454" , price:"169000" ,package:"6ماهه" , createTime:"26.2.1400  22:10:23", membershipTime:"26.2.1400  22:15:23", situation:"موفق"},
+    {username:"09123265454" , price:"169000" ,package:"6ماهه" , createTime:"26.2.1400  22:10:23", membershipTime:"26.2.1400  22:15:23", situation:"موفق"},
+    {username:"09123265454" , price:"169000" ,package:"6ماهه" , createTime:"26.2.1400  22:10:23", membershipTime:"26.2.1400  22:15:23", situation:"موفق"},
+
+  ];
+  const column=Object.keys(tabalData[0]);
+  const ThData =()=>{
+    
+    return column.map((data)=>{
+        return <th key={data}>{data}</th>
+    })
+}
+const tdData =() =>{
+   
+  return tabalData.map((data)=>{
+    return(
+        <tr>
+             {
+                column.map((v)=>{
+                    return <td>{data[v]}</td>
+                })
+             }
+        </tr>
+    )
+  })
+}
   return (
     <Card align='center' direction='column' w='100%' {...rest}>
-      <Flex align='center' w='100%' px='15px' py='10px'>
-        <Text
-          me='auto'
-          color={textColor}
-          fontSize='xl'
-          fontWeight='700'
-          lineHeight='100%'>
-          Weekly Revenue
-        </Text>
-        <Button
-          align='center'
-          justifyContent='center'
-          bg={bgButton}
-          _hover={bgHover}
-          _focus={bgFocus}
-          _active={bgFocus}
-          w='37px'
-          h='37px'
-          lineHeight='100%'
-          borderRadius='10px'
-          {...rest}>
-          <Icon as={MdBarChart} color={iconColor} w='24px' h='24px' />
-        </Button>
-      </Flex>
+          <table className="table" >
+        <thead>
+         <tr>{ThData()}</tr>
+        </thead>
+        <tbody>
+        {tdData()}
+        </tbody>
+       </table>
 
-      <Box h='240px' mt='auto'>
-        <BarChart
-          chartData={barChartDataConsumption}
-          chartOptions={barChartOptionsConsumption}
-        />
-      </Box>
-    </Card>
+     </Card>
   );
 }
